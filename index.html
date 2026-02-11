@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Page</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    background: radial-gradient(circle at top, #1b2735, #090a0f);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    overflow:hidden;
+}
+
+/* ================= FIRST PAGE ================= */
+
+.container{
+    position: relative;
+    text-align:center;
+    padding:40px 30px;
+    max-width:420px;
+    width:90%;
+    border-radius:24px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 0 60px rgba(0,0,0,0.8);
+    animation: pop 1.5s ease;
+}
+
+/* glowing border */
+.container::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:inherit;
+    background: linear-gradient(120deg,#00ffd5,#7f00ff,#00ffd5);
+    z-index:-1;
+    animation: borderMove 4s linear infinite;
+}
+
+.container h1{
+    font-size:28px;
+    margin-bottom:18px;
+    text-shadow: 0 0 15px rgba(0,255,213,0.6);
+}
+
+.container p{
+    font-size:16px;
+    line-height:1.6;
+    opacity:0.95;
+    margin-bottom:30px;
+}
+
+.btn{
+    padding:14px 45px;
+    font-size:16px;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    background: linear-gradient(135deg,#00ffd5,#7f00ff);
+    color:#000;
+    font-weight:600;
+    letter-spacing:1px;
+    box-shadow: 0 0 25px rgba(0,255,213,0.7);
+    animation: pulse 2s infinite;
+}
+
+.btn:hover{
+    transform: scale(1.1);
+}
+
+/* ================= IMAGE PAGE ================= */
+
+.image-screen{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:black;
+    overflow:hidden;
+}
+
+/* digital overlay */
+.image-screen::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.03) 0px,
+            rgba(255,255,255,0.03) 1px,
+            transparent 2px,
+            transparent 4px
+        );
+    pointer-events:none;
+    z-index:2;
+}
+
+/* noise */
+.image-screen::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity:0.08;
+    pointer-events:none;
+    z-index:3;
+}
+
+.image-box{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.image-box img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    filter:
+        contrast(1.1)
+        brightness(1.05)
+        drop-shadow(0 0 30px rgba(0,255,213,0.5));
+    animation: float 6s ease-in-out infinite;
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes pop{
+    from{opacity:0; transform:scale(0.9) translateY(30px);}
+    to{opacity:1; transform:scale(1) translateY(0);}
+}
+
+@keyframes borderMove{
+    0%{filter:hue-rotate(0deg);}
+    100%{filter:hue-rotate(360deg);}
+}
+
+@keyframes pulse{
+    0%{box-shadow:0 0 20px rgba(0,255,213,0.6);}
+    50%{box-shadow:0 0 45px rgba(127,0,255,0.9);}
+    100%{box-shadow:0 0 20px rgba(0,255,213,0.6);}
+}
+
+@keyframes float{
+    0%,100%{transform:scale(1) translateY(0);}
+    50%{transform:scale(1.03) translateY(-10px);}
+}
+</style>
+</head>
+
+<body>
+
+
+<div class="container" id="firstPage">
+    <h1>✨ Message ✨</h1>
+    <p>
+        তুমি যদি নিজেকে দেখতে চাও<br>
+        তাহলে <b>YES</b> এ ক্লিক করো 💙
+    </p>
+    <button class="btn" onclick="showImage()">YES</button>
+</div>
+
+<!-- IMAGE PAGE -->
+<div class="image-screen" id="imagePage">
+    <div class="image-box">
+        <img src="gorila.jpg" alt="Art">
+    </div>
+</div>
+
+<script>
+function showImage(){
+    document.getElementById("firstPage").style.display="none";
+    document.getElementById("imagePage").style.display="block";
+}
+</script>
+
+</body>
+</html>
